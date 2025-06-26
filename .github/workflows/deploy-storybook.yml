@@ -9,8 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    　- name: Install Storybook
-        run: npx sb init
+      - name: Install Storybook
+        run: npx sb init --yes
+
  
       - name: Checkout code
         uses: actions/checkout@v4
