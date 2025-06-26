@@ -1,4 +1,5 @@
 # keitaui使い方
+ここではkeitauiの使い方の説明を行います
 ## インストール
 ```npm install @keitagames/keitaui```
 
