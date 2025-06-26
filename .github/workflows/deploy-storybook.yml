@@ -3,17 +3,18 @@ name: Deploy Storybook to GitHub Pages
 on:
   push:
     branches:
-      - main  # または develop など
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Storybook
-        run: npx sb init --yes
-
- 
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -23,7 +24,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-      
 
       - name: Build Storybook
         run: npm run build-storybook
@@ -36,11 +36,10 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
     environment:
       name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
